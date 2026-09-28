@@ -8,5 +8,9 @@ import ru.wertyfiregames.technogenesis.Technogenesis;
 public class TechItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Technogenesis.MODID);
 
-//    public static final DeferredItem<Item>
+    public static final DeferredItem<Item> CASSITERITE = registerItem("cassiterite");
+
+    public static DeferredItem<Item> registerItem(String name) {
+        return ITEMS.registerSimpleItem(name);
+    }
 }

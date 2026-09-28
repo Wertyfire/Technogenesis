@@ -1,0 +1,9 @@
+{
+  "block.technogenesis.cassiterite_block": "Cassiterite Block",
+  "block.technogenesis.cassiterite_ore": "Cassiterite Ore",
+  "block.technogenesis.deepslate_cassiterite_ore": "Deepslate Cassiterite Ore",
+
+  "itemGroup.technogenesis.resources": "Technogenesis: Resources",
+
+  "item.technogenesis.cassiterite": "Cassiterite"
+}
