@@ -37,7 +37,7 @@ public class TechBlockTagsProvider extends BlockTagsProvider {
                 .add(TechBlocks.DEEPSLATE_CASSITERITE_ORE.getKey())
                 .add(TechBlocks.CASSITERITE_BLOCK.getKey());
 
-        tag(BlockTags.NEEDS_DIAMOND_TOOL)
+        tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(TechBlocks.CASSITERITE_ORE.getKey())
                 .add(TechBlocks.DEEPSLATE_CASSITERITE_ORE.getKey())
                 .add(TechBlocks.CASSITERITE_BLOCK.getKey());

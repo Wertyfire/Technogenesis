@@ -22,9 +22,9 @@ public class TechBlocks {
                     .requiresCorrectToolForDrops().strength(4.0f, 4.0f)));
     public static final DeferredBlock<Block> DEEPSLATE_CASSITERITE_ORE = registerWithItem("deepslate_cassiterite_ore",
             properties -> new DropExperienceBlock(ConstantInt.of(0), properties.mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).sound(SoundType.DEEPSLATE)
-                    .requiresCorrectToolForDrops().strength(5.5f, 4.0f)));
+                    .requiresCorrectToolForDrops().strength(5.0f, 4.0f)));
     public static final DeferredBlock<Block> CASSITERITE_BLOCK = registerWithItem("cassiterite_block",
-            properties -> new Block(properties.mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.IRON_XYLOPHONE).sound(SoundType.AMETHYST_CLUSTER)
+            properties -> new Block(properties.mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.IRON_XYLOPHONE).sound(SoundType.METAL)
                     .requiresCorrectToolForDrops().strength(6f, 6f)));
 
     public static <T extends Block> DeferredBlock<T> registerWithItem(String name, Function<BlockBehaviour.Properties, T> function) {
