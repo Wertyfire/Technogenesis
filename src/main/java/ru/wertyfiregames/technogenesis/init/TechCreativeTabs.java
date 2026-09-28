@@ -11,10 +11,13 @@ import ru.wertyfiregames.technogenesis.Technogenesis;
 public class TechCreativeTabs {
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Technogenesis.MODID);
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN_TAB = TABS.register("1", () -> CreativeModeTab.builder()
-            .title(Component.translatable("itemGroup.technogenesis."))
-            /*.icon(() -> new ItemStack(TechItems.IRON_DUST))*/
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> RESOURCES = TABS.register("resources", () -> CreativeModeTab.builder()
+            .title(Component.translatable("itemGroup.technogenesis.resources"))
+            .icon(() -> new ItemStack(TechItems.CASSITERITE.asItem()))
             .displayItems((itemDisplayParameters, output) -> {
-                /*output.accept();*/
+                output.accept(TechBlocks.CASSITERITE_ORE);
+                output.accept(TechBlocks.DEEPSLATE_CASSITERITE_ORE);
+                output.accept(TechBlocks.CASSITERITE_BLOCK);
+                output.accept(TechItems.CASSITERITE);
             }).build());
 }
