@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "cassiterite",
+  "ingredients": [
+    "technogenesis:cassiterite_block"
+  ],
+  "result": {
+    "count": 9,
+    "id": "technogenesis:cassiterite"
+  }
+}
