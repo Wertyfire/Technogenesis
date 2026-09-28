@@ -1,6 +1,7 @@
 package ru.wertyfiregames.technogenesis;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -18,5 +19,12 @@ public class Technogenesis {
         TechItems.ITEMS.register(modEventBus);
         TechBlocks.BLOCKS.register(modEventBus);
         TechCreativeTabs.TABS.register(modEventBus);
+    }
+
+    public static Identifier createIdentifier(String path) {
+        return Identifier.fromNamespaceAndPath(MODID, path);
+    }
+    public static Identifier createCommonIdentifier(String path) {
+        return Identifier.fromNamespaceAndPath("c", path);
     }
 }
