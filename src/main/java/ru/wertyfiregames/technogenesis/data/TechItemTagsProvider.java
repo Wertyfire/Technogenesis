@@ -8,6 +8,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagCopyingItemTagProvider;
+import org.jspecify.annotations.NonNull;
 import ru.wertyfiregames.technogenesis.Technogenesis;
 import ru.wertyfiregames.technogenesis.init.TechItems;
 
@@ -19,7 +20,7 @@ public class TechItemTagsProvider extends BlockTagCopyingItemTagProvider {
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider provider) {
+    protected void addTags(HolderLookup.@NonNull Provider provider) {
         tag(CASSITERITE)
                 .add(TechItems.CASSITERITE.getKey());
 

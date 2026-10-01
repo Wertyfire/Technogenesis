@@ -7,6 +7,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
+import org.jspecify.annotations.NonNull;
 import ru.wertyfiregames.technogenesis.Technogenesis;
 import ru.wertyfiregames.technogenesis.init.TechBlocks;
 
@@ -18,7 +19,7 @@ public class TechBlockTagsProvider extends BlockTagsProvider {
     }
 
     @Override
-    protected void addTags(HolderLookup. Provider provider) {
+    protected void addTags(HolderLookup.@NonNull Provider provider) {
         tag(CASSITERITE_ORES)
                 .add(TechBlocks.CASSITERITE_ORE.getKey())
                 .add(TechBlocks.DEEPSLATE_CASSITERITE_ORE.getKey());
