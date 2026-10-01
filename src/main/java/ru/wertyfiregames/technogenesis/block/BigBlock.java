@@ -2,7 +2,9 @@ package ru.wertyfiregames.technogenesis.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
@@ -22,20 +24,18 @@ public abstract class BigBlock extends BaseEntityBlock {
     @Override
     public @Nullable BlockState getStateForPlacement(@NonNull BlockPlaceContext context) {
         for (BlockPos dummy : dummyPositions) {
-            if (context.getLevel().getBlockState(blockPosWithOffset(context.getClickedPos(), dummy)).isAir()) return null;
+            if (!context.getLevel().getBlockState(blockPosWithOffset(context.getClickedPos(), dummy)).isAir()) return null;
         }
         return super.getStateForPlacement(context);
     }
 
     @Override
-    protected void onPlace(@NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull BlockState oldState, boolean movedByPiston) {
-        super.onPlace(state, level, pos, oldState, movedByPiston);
+    public void setPlacedBy(@NonNull Level level, @NonNull BlockPos pos, @NonNull BlockState state, @Nullable LivingEntity by, @NonNull ItemStack itemStack) {
+        super.setPlacedBy(level, pos, state, by, itemStack);
         for (BlockPos dummy : dummyPositions) {
             BlockPos withOffset = blockPosWithOffset(pos, dummy);
             level.setBlock(withOffset, TechBlocks.DUMMY.get().defaultBlockState(), 3);
             ((DummyBlock) level.getBlockState(withOffset).getBlock()).setParentPos(level, withOffset, pos);
-            //TODO remove check
-            System.out.println("onPlace called, blockentity placed: " + level.getBlockEntity(blockPosWithOffset(pos, dummy)) != null);
         }
     }
 
@@ -53,10 +53,8 @@ public abstract class BigBlock extends BaseEntityBlock {
 
     protected void removeDummies(Level level, BlockPos pos) {
         for (BlockPos dummy : dummyPositions) {
-            if (level.getBlockState(blockPosWithOffset(pos, dummy)).getBlock() == TechBlocks.DUMMY.get())
+            if (level.getBlockState(blockPosWithOffset(pos, dummy)).is(TechBlocks.DUMMY))
                 level.removeBlock(blockPosWithOffset(pos, dummy), false);
-            //TODO remove
-            System.out.println("playerWillDestroy called, blockentity placed: " + level.getBlockEntity(dummy) != null);
         }
     }
 
