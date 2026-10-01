@@ -11,6 +11,8 @@ import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import ru.wertyfiregames.technogenesis.Technogenesis;
+import ru.wertyfiregames.technogenesis.block.DummyBlock;
+import ru.wertyfiregames.technogenesis.block.PressBlock;
 
 import java.util.function.Function;
 
@@ -27,10 +29,20 @@ public class TechBlocks {
             properties -> new Block(properties.mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.IRON_XYLOPHONE).sound(SoundType.METAL)
                     .requiresCorrectToolForDrops().strength(6f, 6f)));
 
+    public static final DeferredBlock<Block> BURNER_PRESS = registerWithItem("burner_press",
+            properties -> new PressBlock(properties.mapColor(MapColor.TERRACOTTA_GRAY).sound(SoundType.IRON)
+                    .requiresCorrectToolForDrops().strength(5f, 6f).noOcclusion().isViewBlocking((_, _, _, _) -> false)));
+
+    public static final DeferredBlock<Block> DUMMY = register("dummy", DummyBlock::new);
+
     public static <T extends Block> DeferredBlock<T> registerWithItem(String name, Function<BlockBehaviour.Properties, T> function) {
         DeferredBlock<T> block = BLOCKS.registerBlock(name, function);
         registerBlockItem(name, block);
         return block;
+    }
+
+    public static <T extends Block> DeferredBlock<T> register(String name, Function<BlockBehaviour.Properties, T> function) {
+        return BLOCKS.registerBlock(name, function);
     }
 
     public static <T extends Block> void registerBlockItem(String name, DeferredBlock<T> block) {

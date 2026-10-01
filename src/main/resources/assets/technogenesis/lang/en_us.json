@@ -2,7 +2,10 @@
   "block.technogenesis.cassiterite_block": "Cassiterite Block",
   "block.technogenesis.cassiterite_ore": "Cassiterite Ore",
   "block.technogenesis.deepslate_cassiterite_ore": "Deepslate Cassiterite Ore",
+  "block.technogenesis.burner_press": "Burner Press",
+  "block.technogenesis.dummy": "Dummy",
 
+  "itemGroup.technogenesis.machines": "Technogenesis: Machines",
   "itemGroup.technogenesis.resources": "Technogenesis: Resources",
 
   "item.technogenesis.cassiterite": "Cassiterite"

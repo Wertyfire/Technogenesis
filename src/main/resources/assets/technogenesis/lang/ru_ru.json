@@ -2,7 +2,10 @@
   "block.technogenesis.cassiterite_block": "Касситеритовый блок",
   "block.technogenesis.cassiterite_ore": "Касситеритовая руда",
   "block.technogenesis.deepslate_cassiterite_ore": "Глубинносланцевая касситеритовая руда",
+  "block.technogenesis.burner_press": "Твердотопливный пресс",
+  "block.technogenesis.dummy": "Заглушка",
 
+  "itemGroup.technogenesis.machines": "Техногенезис: машины",
   "itemGroup.technogenesis.resources": "Техногенезис: ресурсы",
 
   "item.technogenesis.cassiterite": "Касситерит"

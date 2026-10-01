@@ -16,10 +16,13 @@ public class TechModelProvider extends ModelProvider {
 
     @Override
     protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
+        //Blocks
         blockModels.createTrivialCube(TechBlocks.CASSITERITE_ORE.get());
         blockModels.createTrivialCube(TechBlocks.DEEPSLATE_CASSITERITE_ORE.get());
         blockModels.createTrivialCube(TechBlocks.CASSITERITE_BLOCK.get());
+        blockModels.createNonTemplateModelBlock(TechBlocks.BURNER_PRESS.get());
 
+        //Items
         itemModels.generateFlatItem(TechItems.CASSITERITE.get(), ModelTemplates.FLAT_ITEM);
     }
 }
