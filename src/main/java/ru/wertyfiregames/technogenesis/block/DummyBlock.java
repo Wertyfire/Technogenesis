@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -36,7 +37,7 @@ public class DummyBlock extends Block implements EntityBlock {
     //Logic start
 
     @Override
-    public void spawnDestroyParticles(@NonNull Level level, @NonNull BlockPos pos, @NonNull BlockState state) {
+    public void spawnDestroyByEntityParticles(Level level, @Nullable Entity entity, BlockPos pos, BlockState state) {
         BlockState parent = level.getBlockState(getParentPos(level, pos));
         level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, getId(parent));
     }
