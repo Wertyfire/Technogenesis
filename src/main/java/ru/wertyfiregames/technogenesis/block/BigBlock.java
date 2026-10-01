@@ -9,6 +9,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -32,11 +33,7 @@ public abstract class BigBlock extends BaseEntityBlock {
     @Override
     public void setPlacedBy(@NonNull Level level, @NonNull BlockPos pos, @NonNull BlockState state, @Nullable LivingEntity by, @NonNull ItemStack itemStack) {
         super.setPlacedBy(level, pos, state, by, itemStack);
-        for (BlockPos dummy : dummyPositions) {
-            BlockPos withOffset = blockPosWithOffset(pos, dummy);
-            level.setBlock(withOffset, TechBlocks.DUMMY.get().defaultBlockState(), 3);
-            ((DummyBlock) level.getBlockState(withOffset).getBlock()).setParentPos(level, withOffset, pos);
-        }
+        placeDummies(level, pos);
     }
 
     @Override
@@ -51,10 +48,21 @@ public abstract class BigBlock extends BaseEntityBlock {
         super.onBlockExploded(state, level, pos, explosion);
     }
 
+    protected void placeDummies(Level level, BlockPos pos) {
+        if (level.isClientSide()) return;
+        for (BlockPos dummy : dummyPositions) {
+            BlockPos withOffset = blockPosWithOffset(pos, dummy);
+            level.setBlock(withOffset, TechBlocks.DUMMY.get().defaultBlockState(), 3);
+            ((DummyBlock) level.getBlockState(withOffset).getBlock()).setParentPos(level, withOffset, pos);
+        }
+    }
+
     protected void removeDummies(Level level, BlockPos pos) {
         for (BlockPos dummy : dummyPositions) {
-            if (level.getBlockState(blockPosWithOffset(pos, dummy)).is(TechBlocks.DUMMY))
+            if (level.getBlockState(blockPosWithOffset(pos, dummy)).is(TechBlocks.DUMMY)) {
+                level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, blockPosWithOffset(pos, dummy), getId(level.getBlockState(dummy)));
                 level.removeBlock(blockPosWithOffset(pos, dummy), false);
+            }
         }
     }
 
