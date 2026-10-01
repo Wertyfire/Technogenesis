@@ -11,28 +11,34 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import ru.wertyfiregames.technogenesis.block.entity.DummyBlockEntity;
 
 public class DummyBlock extends Block implements EntityBlock {
+    private BlockPos cachedParent = null;
+
     public DummyBlock(Properties properties) {
         super(properties.noOcclusion().noLootTable());
     }
 
     @Override
-    public void spawnDestroyParticles(Level level, BlockPos pos, BlockState state) {
-        super.spawnDestroyParticles(level, pos, state);
-//        TODO implement
-    }
-
-    @Override
     public @Nullable BlockEntity newBlockEntity(@NonNull BlockPos blockPos, @NonNull BlockState blockState) {
         return new DummyBlockEntity(blockPos, blockState);
+    }
+
+    //Logic start
+
+    @Override
+    public void spawnDestroyParticles(@NonNull Level level, @NonNull BlockPos pos, @NonNull BlockState state) {
+        BlockState parent = level.getBlockState(getParentPos(level, pos));
+        level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, getId(parent));
     }
 
     @Override
@@ -46,7 +52,7 @@ public class DummyBlock extends Block implements EntityBlock {
 //    }
 
     @Override
-    protected float getDestroyProgress(@NonNull BlockState state, @NonNull Player player, BlockGetter level, @NonNull BlockPos pos) {
+    protected float getDestroyProgress(@NonNull BlockState state, @NonNull Player player, BlockGetter level, @NonNull BlockPos pos) {//TODO implement
         return level.getBlockState(getParentPos(level, pos)).getDestroyProgress(player, level, getParentPos(level, pos));
     }
 
@@ -61,8 +67,13 @@ public class DummyBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public @NonNull BlockState playerWillDestroy(Level level, @NonNull BlockPos pos, @NonNull BlockState state, Player player) {
-        level.destroyBlock(pos, !player.isCreative());
+    public boolean onDestroyedByPlayer(@NonNull BlockState state, Level level, @NonNull BlockPos pos, Player player, @NonNull ItemStack toolStack, boolean willHarvest, @NonNull FluidState fluid) {
+        level.destroyBlock(getParentPos(level, pos), !player.isCreative());
+        return super.onDestroyedByPlayer(state, level, pos, player, toolStack, willHarvest, fluid);
+    }
+
+    @Override
+    public @NonNull BlockState playerWillDestroy(@NonNull Level level, @NonNull BlockPos pos, @NonNull BlockState state, @NonNull Player player) {
         return super.playerWillDestroy(level, pos, state, player);
     }
 
@@ -75,10 +86,13 @@ public class DummyBlock extends Block implements EntityBlock {
     public void setParentPos(BlockGetter level, BlockPos pos, BlockPos parentPos) {
         DummyBlockEntity dummyEntity = (DummyBlockEntity) level.getBlockEntity(pos);
         dummyEntity.setParent(parentPos);
+        cachedParent = parentPos;
     }
 
     public BlockPos getParentPos(BlockGetter level, BlockPos sourcePos) {
+        if (cachedParent != null) return cachedParent;
         DummyBlockEntity dummyEntity = (DummyBlockEntity) level.getBlockEntity(sourcePos);
-        return dummyEntity.getParent();
+        cachedParent = dummyEntity.getParent();
+        return cachedParent;
     }
 }
