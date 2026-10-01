@@ -23,8 +23,6 @@ import org.jspecify.annotations.Nullable;
 import ru.wertyfiregames.technogenesis.block.entity.DummyBlockEntity;
 
 public class DummyBlock extends Block implements EntityBlock {
-    private BlockPos cachedParent = null;
-
     public DummyBlock(Properties properties) {
         super(properties.noOcclusion().noLootTable());
     }
@@ -37,7 +35,7 @@ public class DummyBlock extends Block implements EntityBlock {
     //Logic start
 
     @Override
-    public void spawnDestroyByEntityParticles(Level level, @Nullable Entity entity, BlockPos pos, BlockState state) {
+    public void spawnDestroyByEntityParticles(Level level, @Nullable Entity entity, @NonNull BlockPos pos, @NonNull BlockState state) {
         BlockState parent = level.getBlockState(getParentPos(level, pos));
         level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, getId(parent));
     }
@@ -68,9 +66,14 @@ public class DummyBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public boolean onDestroyedByPlayer(@NonNull BlockState state, Level level, @NonNull BlockPos pos, Player player, @NonNull ItemStack toolStack, boolean willHarvest, @NonNull FluidState fluid) {
-        level.destroyBlock(getParentPos(level, pos), !player.isCreative());
-        return super.onDestroyedByPlayer(state, level, pos, player, toolStack, willHarvest, fluid);
+    public boolean onDestroyedByPlayer(@NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull Player player, @NonNull ItemStack toolStack, boolean willHarvest, @NonNull FluidState fluid) {
+        BlockPos parentPos = getParentPos(level, pos);
+        if (level.getBlockState(parentPos).getBlock() instanceof BigBlock) {
+            level.getBlockState(parentPos).getBlock().playerWillDestroy(level, parentPos, state, player);
+            level.destroyBlock(parentPos, !player.isCreative());
+        }
+        level.removeBlock(pos, false);
+        return false;
     }
 
     @Override
@@ -79,7 +82,7 @@ public class DummyBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public void onBlockExploded(BlockState state, ServerLevel level, BlockPos pos, Explosion explosion) {//TODO finish
+    public void onBlockExploded(@NonNull BlockState state, ServerLevel level, @NonNull BlockPos pos, @NonNull Explosion explosion) {//TODO finish
         BigBlock.ExplosionResult result = ((BigBlock) level.getBlockState(getParentPos(level, pos)).getBlock()).dummyExploded(level, pos, explosion);
         if (result == BigBlock.ExplosionResult.DESTROY) level.getBlockState(getParentPos(level, pos)).onBlockExploded(level, pos, explosion);
     }
@@ -87,13 +90,10 @@ public class DummyBlock extends Block implements EntityBlock {
     public void setParentPos(BlockGetter level, BlockPos pos, BlockPos parentPos) {
         DummyBlockEntity dummyEntity = (DummyBlockEntity) level.getBlockEntity(pos);
         dummyEntity.setParent(parentPos);
-        cachedParent = parentPos;
     }
 
     public BlockPos getParentPos(BlockGetter level, BlockPos sourcePos) {
-        if (cachedParent != null) return cachedParent;
         DummyBlockEntity dummyEntity = (DummyBlockEntity) level.getBlockEntity(sourcePos);
-        cachedParent = dummyEntity.getParent();
-        return cachedParent;
+        return dummyEntity.getParent();
     }
 }
