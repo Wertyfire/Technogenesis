@@ -16,7 +16,7 @@ import org.jspecify.annotations.Nullable;
 import ru.wertyfiregames.technogenesis.init.TechBlocks;
 //TODO add rotation checks!!!
 public abstract class BigBlock extends BaseEntityBlock {
-    public BlockPos[] dummyPositions = new BlockPos[0];
+    protected BlockPos[] dummyPositions = new BlockPos[0];
 
     public BigBlock(Properties properties) {
         super(properties);
@@ -60,7 +60,7 @@ public abstract class BigBlock extends BaseEntityBlock {
     protected void removeDummies(Level level, BlockPos pos) {
         for (BlockPos dummy : dummyPositions) {
             if (level.getBlockState(blockPosWithOffset(pos, dummy)).is(TechBlocks.DUMMY)) {
-                level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, blockPosWithOffset(pos, dummy), getId(level.getBlockState(dummy)));
+                level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, blockPosWithOffset(pos, dummy), getId(level.getBlockState(blockPosWithOffset(pos, dummy))));
                 level.removeBlock(blockPosWithOffset(pos, dummy), false);
             }
         }
