@@ -14,10 +14,17 @@ public class TechCreativeTabs {
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> RESOURCES = TABS.register("resources", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.technogenesis.resources"))
             .icon(() -> new ItemStack(TechItems.CASSITERITE.asItem()))
-            .displayItems((itemDisplayParameters, output) -> {
+            .displayItems((_, output) -> {
                 output.accept(TechBlocks.CASSITERITE_ORE);
                 output.accept(TechBlocks.DEEPSLATE_CASSITERITE_ORE);
                 output.accept(TechBlocks.CASSITERITE_BLOCK);
                 output.accept(TechItems.CASSITERITE);
+            }).build());
+
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MACHINES = TABS.register("machines", () -> CreativeModeTab.builder()
+            .title(Component.translatable("itemGroup.technogenesis.machines"))
+            .icon(() -> new ItemStack(TechBlocks.BURNER_PRESS.asItem()))
+            .displayItems((_, output) -> {
+                output.accept(TechBlocks.BURNER_PRESS);
             }).build());
 }
