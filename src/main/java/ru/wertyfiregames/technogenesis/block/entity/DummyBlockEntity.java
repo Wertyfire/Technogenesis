@@ -27,14 +27,14 @@ public class DummyBlockEntity extends BlockEntity {
     @Override
     protected void saveAdditional(@NonNull ValueOutput output) {
         super.saveAdditional(output);
-        output.putInt("parent_x", parent.getX());
-        output.putInt("parent_y", parent.getY());
-        output.putInt("parent_z", parent.getZ());
+        output.putInt("dummy_parent_x", parent.getX());
+        output.putInt("dummy_parent_y", parent.getY());
+        output.putInt("dummy_parent_z", parent.getZ());
     }
 
     @Override
     protected void loadAdditional(@NonNull ValueInput input) {
         super.loadAdditional(input);
-        parent = new BlockPos(input.getIntOr("parent_x", 0), input.getIntOr("parent_y", 0), input.getIntOr("parent_z", 0));
+        parent = new BlockPos(input.getIntOr("dummy_parent_x", 0), input.getIntOr("dummy_parent_y", 0), input.getIntOr("dummy_parent_z", 0));
     }
 }
