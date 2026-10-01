@@ -20,7 +20,7 @@ public abstract class BigBlock extends BaseEntityBlock {
     }
 
     @Override
-    public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
+    public @Nullable BlockState getStateForPlacement(@NonNull BlockPlaceContext context) {
         for (BlockPos dummy : dummyPositions) {
             if (context.getLevel().getBlockState(blockPosWithOffset(context.getClickedPos(), dummy)).isAir()) return null;
         }
@@ -46,17 +46,23 @@ public abstract class BigBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void onBlockExploded(BlockState state, ServerLevel level, BlockPos pos, Explosion explosion) {
+    public void onBlockExploded(@NonNull BlockState state, @NonNull ServerLevel level, @NonNull BlockPos pos, @NonNull Explosion explosion) {
         removeDummies(level, pos);
         super.onBlockExploded(state, level, pos, explosion);
     }
 
     protected void removeDummies(Level level, BlockPos pos) {
         for (BlockPos dummy : dummyPositions) {
-            level.removeBlock(blockPosWithOffset(pos, dummy), false);
+            if (level.getBlockState(blockPosWithOffset(pos, dummy)).getBlock() == TechBlocks.DUMMY.get())
+                level.removeBlock(blockPosWithOffset(pos, dummy), false);
             //TODO remove
             System.out.println("playerWillDestroy called, blockentity placed: " + level.getBlockEntity(dummy) != null);
         }
+    }
+
+    protected void setDummyPositions(BlockPos... positions) {
+        dummyPositions = new BlockPos[positions.length];
+        System.arraycopy(positions, 0, dummyPositions, 0, positions.length);
     }
 
     public abstract ExplosionResult dummyExploded(Level level, BlockPos dummyPos, Explosion explosion);
@@ -67,6 +73,6 @@ public abstract class BigBlock extends BaseEntityBlock {
 
     public enum ExplosionResult {
         DESTROY,
-        CHANGE_MODEL;
+        CHANGE_MODEL
     }
 }
