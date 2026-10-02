@@ -26,7 +26,7 @@ import ru.wertyfiregames.technogenesis.block.entity.DummyBlockEntity;
 
 public class DummyBlock extends Block implements EntityBlock {
     public DummyBlock(Properties properties) {
-        super(properties.pushReaction(PushReaction.IMMOVEABLE).noOcclusion().noLootTable());
+        super(properties.strength(1f).noOcclusion().noLootTable().pushReaction(PushReaction.IMMOVEABLE));
     }
 
     @Override
@@ -47,19 +47,21 @@ public class DummyBlock extends Block implements EntityBlock {
         return RenderShape.INVISIBLE;
     }
 
-//    @Override TODO finish this
+//    @Override TODO finish
 //    protected @NonNull VoxelShape getShape(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull CollisionContext context) {
-//        return level.getBlockState(getParentPos(level, pos)).getBlock().defaultBlockState().getShape(level, getParentPos(level, pos)).move(pos.getX() - getParentPos(level, pos).getX(), pos.getY() - getParentPos(level, pos).getY(), pos.getZ() - getParentPos(level, pos).getZ());
+//        return box(0, 0, 0, 16, 16, 16);
 //    }
 
     @Override
-    public @NonNull ItemStack getCloneItemStack(LevelReader level, @NonNull BlockPos pos, @NonNull BlockState state, boolean includeData, @NonNull Player player) {
-        return level.getBlockState(getParentPos(level, pos)).getCloneItemStack(pos, level, includeData, player);
+    public @NonNull ItemStack getCloneItemStack(@NonNull LevelReader level, @NonNull BlockPos pos, @NonNull BlockState state, boolean includeData, @NonNull Player player) {
+        BlockPos parent = getParentPos(level, pos);
+        return level.getBlockState(parent).getCloneItemStack(parent, level, includeData, player);
     }
 
     @Override
-    protected float getDestroyProgress(@NonNull BlockState state, @NonNull Player player, BlockGetter level, @NonNull BlockPos pos) {//TODO implement
-        return level.getBlockState(getParentPos(level, pos)).getDestroyProgress(player, level, getParentPos(level, pos));
+    protected float getDestroyProgress(@NonNull BlockState state, @NonNull Player player, @NonNull BlockGetter level, @NonNull BlockPos pos) {
+        BlockPos parent = getParentPos(level, pos);
+        return level.getBlockState(parent).getDestroyProgress(player, level, parent);
     }
 
     @Override
@@ -77,15 +79,16 @@ public class DummyBlock extends Block implements EntityBlock {
         BlockPos parentPos = getParentPos(level, pos);
         if (level.getBlockState(parentPos).getBlock() instanceof BigBlock) {
             level.getBlockState(parentPos).getBlock().playerWillDestroy(level, parentPos, state, player);
-            level.destroyBlock(parentPos, !player.isCreative());
+            level.destroyBlock(parentPos, !player.isCreative(), player); //TODO drop if matching
         }
         level.removeBlock(pos, false);
         return false;
     }
 
+    // to remove auto-created particles
     @Override
     public @NonNull BlockState playerWillDestroy(@NonNull Level level, @NonNull BlockPos pos, @NonNull BlockState state, @NonNull Player player) {
-        return super.playerWillDestroy(level, pos, state, player);
+        return state;
     }
 
     @Override
