@@ -31,6 +31,7 @@ public abstract class BigBlock extends BaseEntityBlock {
                     context.getPlayer().sendOverlayMessage(Component.translatable("technogenesis.multiblock.not_enough_space"));
                 return null;
             }
+//            if (context.getLevel().getEntities(null, dummy).isEmpty()) TODO implement entity check
         }
         return super.getStateForPlacement(context);
     }
