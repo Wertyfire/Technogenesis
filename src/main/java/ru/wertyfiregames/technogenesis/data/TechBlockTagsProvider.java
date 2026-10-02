@@ -36,12 +36,14 @@ public class TechBlockTagsProvider extends BlockTagsProvider {
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(TechBlocks.CASSITERITE_ORE.getKey())
                 .add(TechBlocks.DEEPSLATE_CASSITERITE_ORE.getKey())
-                .add(TechBlocks.CASSITERITE_BLOCK.getKey());
+                .add(TechBlocks.CASSITERITE_BLOCK.getKey())
+                .add(TechBlocks.BURNER_PRESS.getKey());
 
         tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(TechBlocks.CASSITERITE_ORE.getKey())
                 .add(TechBlocks.DEEPSLATE_CASSITERITE_ORE.getKey())
-                .add(TechBlocks.CASSITERITE_BLOCK.getKey());
+                .add(TechBlocks.CASSITERITE_BLOCK.getKey())
+                .add(TechBlocks.BURNER_PRESS.getKey());
 
         tag(BlockTags.BLOCKS_MOTION_NO_LEAVES)
                 .add(TechBlocks.CASSITERITE_BLOCK.getKey());
