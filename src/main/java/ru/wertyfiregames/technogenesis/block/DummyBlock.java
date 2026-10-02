@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.LevelEvent;
@@ -50,6 +51,11 @@ public class DummyBlock extends Block implements EntityBlock {
 //    protected @NonNull VoxelShape getShape(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull CollisionContext context) {
 //        return level.getBlockState(getParentPos(level, pos)).getBlock().defaultBlockState().getShape(level, getParentPos(level, pos)).move(pos.getX() - getParentPos(level, pos).getX(), pos.getY() - getParentPos(level, pos).getY(), pos.getZ() - getParentPos(level, pos).getZ());
 //    }
+
+    @Override
+    public @NonNull ItemStack getCloneItemStack(LevelReader level, @NonNull BlockPos pos, @NonNull BlockState state, boolean includeData, @NonNull Player player) {
+        return level.getBlockState(getParentPos(level, pos)).getCloneItemStack(pos, level, includeData, player);
+    }
 
     @Override
     protected float getDestroyProgress(@NonNull BlockState state, @NonNull Player player, BlockGetter level, @NonNull BlockPos pos) {//TODO implement
