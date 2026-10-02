@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "technogenesis:item/burner_press"
+    "model": "technogenesis:block/burner_press"
   }
 }
