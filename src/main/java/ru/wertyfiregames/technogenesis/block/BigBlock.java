@@ -48,6 +48,11 @@ public abstract class BigBlock extends BaseEntityBlock {
     }
 
     @Override
+    public void spawnDestroyParticles(Level level, @NonNull BlockPos pos, @NonNull BlockState state) {
+        level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, getId(state));
+    }
+
+    @Override
     public void onBlockExploded(@NonNull BlockState state, @NonNull ServerLevel level, @NonNull BlockPos pos, @NonNull Explosion explosion) {
         removeDummies(level, pos);
         super.onBlockExploded(state, level, pos, explosion);
