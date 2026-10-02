@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -24,7 +25,7 @@ import ru.wertyfiregames.technogenesis.block.entity.DummyBlockEntity;
 
 public class DummyBlock extends Block implements EntityBlock {
     public DummyBlock(Properties properties) {
-        super(properties.noOcclusion().noLootTable());
+        super(properties.pushReaction(PushReaction.IMMOVEABLE).noOcclusion().noLootTable());
     }
 
     @Override
@@ -47,7 +48,7 @@ public class DummyBlock extends Block implements EntityBlock {
 
 //    @Override TODO finish this
 //    protected @NonNull VoxelShape getShape(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull CollisionContext context) {
-//        return level.getBlockState(getParentPos(level, pos)).getBlock().defaultBlockState().getShape(level, getParentPos(level, pos)).move();
+//        return level.getBlockState(getParentPos(level, pos)).getBlock().defaultBlockState().getShape(level, getParentPos(level, pos)).move(pos.getX() - getParentPos(level, pos).getX(), pos.getY() - getParentPos(level, pos).getY(), pos.getZ() - getParentPos(level, pos).getZ());
 //    }
 
     @Override
