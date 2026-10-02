@@ -2,6 +2,7 @@
   "values": [
     "technogenesis:cassiterite_ore",
     "technogenesis:deepslate_cassiterite_ore",
-    "technogenesis:cassiterite_block"
+    "technogenesis:cassiterite_block",
+    "technogenesis:burner_press"
   ]
 }
