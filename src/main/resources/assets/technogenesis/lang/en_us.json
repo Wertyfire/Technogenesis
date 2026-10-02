@@ -8,5 +8,7 @@
   "itemGroup.technogenesis.machines": "Technogenesis: Machines",
   "itemGroup.technogenesis.resources": "Technogenesis: Resources",
 
-  "item.technogenesis.cassiterite": "Cassiterite"
+  "item.technogenesis.cassiterite": "Cassiterite",
+
+  "technogenesis.multiblock.not_enough_space": "Not enough space"
 }

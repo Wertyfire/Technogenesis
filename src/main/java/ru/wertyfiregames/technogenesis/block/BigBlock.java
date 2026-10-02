@@ -1,6 +1,7 @@
 package ru.wertyfiregames.technogenesis.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -25,7 +26,11 @@ public abstract class BigBlock extends BaseEntityBlock {
     @Override
     public @Nullable BlockState getStateForPlacement(@NonNull BlockPlaceContext context) {
         for (BlockPos dummy : dummyPositions) {
-            if (!context.getLevel().getBlockState(blockPosWithOffset(context.getClickedPos(), dummy)).isAir()) return null;
+            if (!context.getLevel().getBlockState(blockPosWithOffset(context.getClickedPos(), dummy)).isAir()) {
+                if (context.getPlayer() != null)
+                    context.getPlayer().sendOverlayMessage(Component.translatable("technogenesis.multiblock.not_enough_space"));
+                return null;
+            }
         }
         return super.getStateForPlacement(context);
     }

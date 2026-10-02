@@ -8,5 +8,7 @@
   "itemGroup.technogenesis.machines": "Техногенезис: машины",
   "itemGroup.technogenesis.resources": "Техногенезис: ресурсы",
 
-  "item.technogenesis.cassiterite": "Касситерит"
+  "item.technogenesis.cassiterite": "Касситерит",
+
+  "technogenesis.multiblock.not_enough_space": "Недостаточно места"
 }
