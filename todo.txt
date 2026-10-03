@@ -5,5 +5,6 @@ Code:
     DummyBlock:
         apply breaking texture to parent block
         implement explosion reaction
+        add null parent pos handling
     BigBlock:
         apply rotation if needed
