@@ -54,12 +54,6 @@ public class DummyBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void handleUpdateTag(@NonNull ValueInput input) {
-        super.handleUpdateTag(input);
-        parent = new BlockPos(input.getIntOr("dummy_parent_x", 0), input.getIntOr("dummy_parent_y", 0), input.getIntOr("dummy_parent_z", 0));
-    }
-
-    @Override
     public @Nullable Packet<ClientGamePacketListener> getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
     }
