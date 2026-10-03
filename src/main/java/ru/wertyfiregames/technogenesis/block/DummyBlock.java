@@ -2,6 +2,7 @@ package ru.wertyfiregames.technogenesis.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -17,16 +18,20 @@ import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import ru.wertyfiregames.technogenesis.block.entity.DummyBlockEntity;
 
 public class DummyBlock extends Block implements EntityBlock {
     public DummyBlock(Properties properties) {
-        super(properties.strength(1f).noOcclusion().noLootTable().pushReaction(PushReaction.IMMOVEABLE));
+        super(properties.strength(1f).dynamicShape().noOcclusion().noLootTable().pushReaction(PushReaction.IMMOVEABLE));
     }
 
     @Override
@@ -47,10 +52,18 @@ public class DummyBlock extends Block implements EntityBlock {
         return RenderShape.INVISIBLE;
     }
 
-//    @Override TODO finish
-//    protected @NonNull VoxelShape getShape(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull CollisionContext context) {
-//        return box(0, 0, 0, 16, 16, 16);
-//    }
+    @Override
+    protected @NonNull VoxelShape getShape(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull CollisionContext context) {
+        if (level.getBlockEntity(pos) instanceof DummyBlockEntity dummy) {
+            BlockPos parent = dummy.getParent();
+            if (parent != null) return level.getBlockState(parent).getShape(level, pos, context)
+                    .move(
+                            (parent.getX() - pos.getX()),
+                            (parent.getY() - pos.getY()),
+                            (parent.getZ() - pos.getZ()));
+        }
+        return Shapes.block();
+    }
 
     @Override
     public @NonNull ItemStack getCloneItemStack(@NonNull LevelReader level, @NonNull BlockPos pos, @NonNull BlockState state, boolean includeData, @NonNull Player player) {
@@ -78,10 +91,13 @@ public class DummyBlock extends Block implements EntityBlock {
     public boolean onDestroyedByPlayer(@NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull Player player, @NonNull ItemStack toolStack, boolean willHarvest, @NonNull FluidState fluid) {
         BlockPos parentPos = getParentPos(level, pos);
         if (level.getBlockState(parentPos).getBlock() instanceof BigBlock) {
-            level.getBlockState(parentPos).getBlock().playerWillDestroy(level, parentPos, state, player);
-            level.destroyBlock(parentPos, !player.isCreative(), player); //TODO drop if matching
+            BlockState parentState = level.getBlockState(parentPos);
+            BlockEntity be = level.getBlockEntity(parentPos);
+            parentState.getBlock().playerWillDestroy(level, parentPos, parentState, player);
+            parentState.onDestroyedByPlayer(level, parentPos, player, player.getMainHandItem().copy(), !player.isCreative() && player.hasCorrectToolForDrops(parentState, level, parentPos), getFluidState(parentState));
+            if (!level.isClientSide() && !player.isCreative() && parentState.canHarvestBlock(level, parentPos, player))
+                parentState.getBlock().playerDestroy((ServerLevel) level, (ServerPlayer) player, parentPos, parentState, be, player.getMainHandItem().copy());
         }
-        level.removeBlock(pos, false);
         return false;
     }
 
