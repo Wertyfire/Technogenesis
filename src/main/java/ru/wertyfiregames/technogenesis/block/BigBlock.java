@@ -44,6 +44,7 @@ public abstract class BigBlock extends BaseEntityBlock {
     @Override
     public @NonNull BlockState playerWillDestroy(@NonNull Level level, @NonNull BlockPos pos, @NonNull BlockState state, @NonNull Player player) {
         removeDummies(level, pos);
+        player.causeFoodExhaustion(0.005f * dummyPositions.length);
         return super.playerWillDestroy(level, pos, state, player);
     }
 
