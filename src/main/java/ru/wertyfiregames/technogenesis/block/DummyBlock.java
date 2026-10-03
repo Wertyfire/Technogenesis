@@ -92,11 +92,10 @@ public class DummyBlock extends Block implements EntityBlock {
         BlockPos parentPos = getParentPos(level, pos);
         if (level.getBlockState(parentPos).getBlock() instanceof BigBlock) {
             BlockState parentState = level.getBlockState(parentPos);
-            BlockEntity be = level.getBlockEntity(parentPos);
             parentState.getBlock().playerWillDestroy(level, parentPos, parentState, player);
             parentState.onDestroyedByPlayer(level, parentPos, player, player.getMainHandItem().copy(), !player.isCreative() && player.hasCorrectToolForDrops(parentState, level, parentPos), getFluidState(parentState));
             if (!level.isClientSide() && !player.isCreative() && parentState.canHarvestBlock(level, parentPos, player))
-                parentState.getBlock().playerDestroy((ServerLevel) level, (ServerPlayer) player, parentPos, parentState, be, player.getMainHandItem().copy());
+                parentState.getBlock().playerDestroy((ServerLevel) level, (ServerPlayer) player, parentPos, parentState, level.getBlockEntity(parentPos), player.getMainHandItem().copy());
         }
         return false;
     }
