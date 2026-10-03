@@ -21,8 +21,8 @@ public class TechBlockTagsProvider extends BlockTagsProvider {
     @Override
     protected void addTags(HolderLookup.@NonNull Provider provider) {
         tag(CASSITERITE_ORES)
-                .add(TechBlocks.CASSITERITE_ORE.getKey())
-                .add(TechBlocks.DEEPSLATE_CASSITERITE_ORE.getKey());
+                .add(TechBlocks.CASSITERITE_ORE.key())
+                .add(TechBlocks.DEEPSLATE_CASSITERITE_ORE.key());
         tag(COMMON_CASSITERITE_ORES).addTag(CASSITERITE_ORES);
 
         tag(BlockTags.ORES)
@@ -31,22 +31,22 @@ public class TechBlockTagsProvider extends BlockTagsProvider {
                 .addTag(COMMON_CASSITERITE_ORES);
 
         tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE)
-                .add(TechBlocks.DEEPSLATE_CASSITERITE_ORE.getKey());
+                .add(TechBlocks.DEEPSLATE_CASSITERITE_ORE.key());
 
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(TechBlocks.CASSITERITE_ORE.getKey())
-                .add(TechBlocks.DEEPSLATE_CASSITERITE_ORE.getKey())
-                .add(TechBlocks.CASSITERITE_BLOCK.getKey())
-                .add(TechBlocks.BURNER_PRESS.getKey());
+                .add(TechBlocks.CASSITERITE_ORE.key())
+                .add(TechBlocks.DEEPSLATE_CASSITERITE_ORE.key())
+                .add(TechBlocks.CASSITERITE_BLOCK.key())
+                .add(TechBlocks.BURNER_PRESS.key());
 
         tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(TechBlocks.CASSITERITE_ORE.getKey())
-                .add(TechBlocks.DEEPSLATE_CASSITERITE_ORE.getKey())
-                .add(TechBlocks.CASSITERITE_BLOCK.getKey())
-                .add(TechBlocks.BURNER_PRESS.getKey());
+                .add(TechBlocks.CASSITERITE_ORE.key())
+                .add(TechBlocks.DEEPSLATE_CASSITERITE_ORE.key())
+                .add(TechBlocks.CASSITERITE_BLOCK.key())
+                .add(TechBlocks.BURNER_PRESS.key());
 
         tag(BlockTags.BLOCKS_MOTION_NO_LEAVES)
-                .add(TechBlocks.CASSITERITE_BLOCK.getKey());
+                .add(TechBlocks.CASSITERITE_BLOCK.key());
     }
 
     public static final TagKey<Block> CASSITERITE_ORES = BlockTags.create(Technogenesis.createIdentifier("cassiterite_ores"));

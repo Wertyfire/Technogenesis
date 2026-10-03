@@ -22,7 +22,7 @@ public class TechItemTagsProvider extends BlockTagCopyingItemTagProvider {
     @Override
     protected void addTags(HolderLookup.@NonNull Provider provider) {
         tag(CASSITERITE)
-                .add(TechItems.CASSITERITE.getKey());
+                .add(TechItems.CASSITERITE.key());
 
         tag(Tags.Items.RAW_MATERIALS)
                 .addTag(CASSITERITE);
