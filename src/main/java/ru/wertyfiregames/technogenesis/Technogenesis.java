@@ -6,10 +6,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import org.slf4j.Logger;
-import ru.wertyfiregames.technogenesis.init.TechBlockEntities;
-import ru.wertyfiregames.technogenesis.init.TechBlocks;
-import ru.wertyfiregames.technogenesis.init.TechCreativeTabs;
-import ru.wertyfiregames.technogenesis.init.TechItems;
+import ru.wertyfiregames.technogenesis.init.*;
 
 @Mod(Technogenesis.MODID)
 public class Technogenesis {
@@ -21,6 +18,7 @@ public class Technogenesis {
         TechBlocks.BLOCKS.register(modEventBus);
         TechCreativeTabs.TABS.register(modEventBus);
         TechBlockEntities.BLOCK_ENTITIES.register(modEventBus);
+        TechMenuTypes.MENU_TYPES.register(modEventBus);
     }
 
     public static Identifier createIdentifier(String path) {
