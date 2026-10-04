@@ -1,5 +1,7 @@
 Textures:
     blocks:
+        Burner press:
+            add texture
 
 Code:
     DummyBlock:
