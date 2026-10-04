@@ -16,6 +16,6 @@ public class TechnogenesisClient {
 
     @SubscribeEvent
     public static void registerBlockEntityRenderersEvent(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerBlockEntityRenderer(TechBlockEntities.PRESS.get(), PressBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(TechBlockEntities.BURNER_PRESS.get(), PressBlockEntityRenderer::new);
     }
 }
