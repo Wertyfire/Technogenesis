@@ -46,11 +46,7 @@ public class DummyBlockEntity extends BlockEntity {
 
     @Override
     public @NonNull CompoundTag getUpdateTag(HolderLookup.@NonNull Provider registries) {
-        CompoundTag output = super.getUpdateTag(registries);
-        output.putInt("dummy_parent_x", parent.getX());
-        output.putInt("dummy_parent_y", parent.getY());
-        output.putInt("dummy_parent_z", parent.getZ());
-        return output;
+        return saveWithoutMetadata(registries);
     }
 
     @Override
