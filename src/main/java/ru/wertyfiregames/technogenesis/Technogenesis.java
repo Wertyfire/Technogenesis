@@ -19,6 +19,10 @@ public class Technogenesis {
         TechCreativeTabs.TABS.register(modEventBus);
         TechBlockEntities.BLOCK_ENTITIES.register(modEventBus);
         TechMenuTypes.MENU_TYPES.register(modEventBus);
+
+        TechRecipeTypes.SERIALIZERS.register(modEventBus);
+        TechRecipeTypes.TYPES.register(modEventBus);
+        TechRecipeBookCategories.RECIPE_BOOK_CATEGORIES.register(modEventBus);
     }
 
     public static Identifier createIdentifier(String path) {
