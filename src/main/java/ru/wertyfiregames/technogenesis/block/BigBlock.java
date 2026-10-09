@@ -18,6 +18,9 @@ import ru.wertyfiregames.technogenesis.init.TechBlocks;
 //TODO add rotation checks!!!
 public abstract class BigBlock extends BaseEntityBlock {
     protected BlockPos[] dummyPositions = new BlockPos[0];
+    protected BlockPos[] dummyPositionsEast = new BlockPos[0];
+    protected BlockPos[] dummyPositionsSouth = new BlockPos[0];
+    protected BlockPos[] dummyPositionsWest = new BlockPos[0];
 
     public BigBlock(Properties properties) {
         super(properties);
