@@ -1,0 +1,8 @@
+{
+  "type": "technogenesis:pressing",
+  "input": "minecraft:iron_ingot",
+  "result": {
+    "id": "minecraft:iron_nugget"
+  },
+  "stamp": "technogenesis:cassiterite"
+}
