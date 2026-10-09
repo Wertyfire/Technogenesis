@@ -10,5 +10,7 @@
 
   "item.technogenesis.cassiterite": "Cassiterite",
 
-  "technogenesis.multiblock.not_enough_space": "Not enough space!"
+  "technogenesis.multiblock.not_enough_space": "Not enough space!",
+
+  "technogenesis.system.pressure.display": "Pressure: %1$s"
 }
