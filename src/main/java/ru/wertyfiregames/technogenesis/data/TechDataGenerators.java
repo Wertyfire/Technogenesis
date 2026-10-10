@@ -12,7 +12,6 @@ import ru.wertyfiregames.technogenesis.Technogenesis;
 public class TechDataGenerators {
     @SubscribeEvent
     public static void gatherClientData(GatherDataEvent.Client event) {
-
         event.createBlockAndItemTags(TechBlockTagsProvider::new, TechItemTagsProvider::new);
 
         event.createProvider(TechModelProvider::new);
