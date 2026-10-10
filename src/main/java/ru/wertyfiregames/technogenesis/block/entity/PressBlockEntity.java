@@ -164,7 +164,7 @@ public class PressBlockEntity extends BaseMachineBlockEntity implements MenuProv
             increasePressureLevel();
 
             changed = true;
-        } else if (hasPressure() && !hasBurnableFuel(level)) {
+        } else if (hasAnyPressure() && !hasBurnableFuel(level)) {
             decreasePressureLevel();
 
             changed = true;
@@ -228,7 +228,7 @@ public class PressBlockEntity extends BaseMachineBlockEntity implements MenuProv
     }
 
     private void consumePressureOnPress() {
-        pressureLevel -= 40; //TODO replace with value from recipe
+        pressureLevel -= 30; //TODO replace with value from recipe
         validatePressure();
     }
 
