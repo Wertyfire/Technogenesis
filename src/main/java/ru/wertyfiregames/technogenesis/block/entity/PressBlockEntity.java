@@ -330,4 +330,11 @@ public class PressBlockEntity extends BaseMachineBlockEntity implements MenuProv
         pressingTotalTime = DEFAULT_PRESSING_TOTAL_TIME;
         goingUp = false;
     }
+
+    public int getPressingProgress() {
+        return pressingTimer;
+    }
+    public int getTotalPressingTime() {
+        return pressingTotalTime;
+    }
 }

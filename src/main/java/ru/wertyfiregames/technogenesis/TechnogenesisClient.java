@@ -7,7 +7,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import ru.wertyfiregames.technogenesis.block.entity.renderer.PressBlockEntityRenderer;
+import ru.wertyfiregames.technogenesis.block.entity.renderer.PressRenderer;
 import ru.wertyfiregames.technogenesis.init.TechBlockEntities;
 import ru.wertyfiregames.technogenesis.init.TechMenuTypes;
 import ru.wertyfiregames.technogenesis.inventory.gui.PressScreen;
@@ -19,7 +19,7 @@ public class TechnogenesisClient {
 
     @SubscribeEvent
     public static void registerBlockEntityRenderersEvent(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerBlockEntityRenderer(TechBlockEntities.BURNER_PRESS.get(), PressBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(TechBlockEntities.BURNER_PRESS.get(), PressRenderer::new);
     }
 
     @SubscribeEvent

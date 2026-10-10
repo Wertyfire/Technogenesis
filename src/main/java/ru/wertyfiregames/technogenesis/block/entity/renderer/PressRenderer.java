@@ -11,8 +11,8 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import ru.wertyfiregames.technogenesis.block.entity.PressBlockEntity;
 
-public class PressBlockEntityRenderer implements BlockEntityRenderer<PressBlockEntity, PressBlockEntityRenderState> {
-    public PressBlockEntityRenderer(BlockEntityRendererProvider.Context context) {}
+public class PressRenderer implements BlockEntityRenderer<PressBlockEntity, PressBlockEntityRenderState> {
+    public PressRenderer(BlockEntityRendererProvider.Context context) {}
 
     @Override
     public @NonNull PressBlockEntityRenderState createRenderState() {
